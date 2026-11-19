@@ -75,6 +75,7 @@ img, video { max-width: 100%; display: block; }
 .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
 
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+.stats-3 { grid-template-columns: repeat(3, 1fr); }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
 .stat-num { display: block; font-size: 2rem; font-weight: 800; color: var(--accent); letter-spacing: -.02em; }
 .stat-label { color: var(--muted); font-size: .9rem; }
@@ -194,6 +195,8 @@ img, video { max-width: 100%; display: block; }
 .app-body .btn { align-self: flex-start; margin-top: 20px; }
 .edu-note { font-size: .82rem !important; margin-top: 6px; }
 @media (max-width: 680px) { .apps { grid-template-columns: 1fr; } }
+@media (min-width: 681px) and (max-width: 960px) { .stats-3 { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 680px) { .stats-3 { grid-template-columns: 1fr; } }
 
 /* Case study pages */
 .nav-static { display: flex !important; position: static !important; flex-direction: row !important; padding: 0 !important; border: 0 !important; background: none !important; }
