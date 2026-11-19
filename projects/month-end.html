@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Month-End Close Automation | Joey El Gemayel</title>
+  <meta name="description" content="Python pipeline that runs a fintech month-end close in under 2 seconds: 7 messy sources, data-quality checks, SQL warehouse, automated reconciliations with root-cause hints, variance commentary, Excel pack and HTML summary." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../index.html" class="logo">JG<span>.</span></a>
+      <nav class="nav-links nav-static">
+        <a href="../index.html#projects">← All projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="container">
+        <p class="eyebrow mono">Case study · Automation</p>
+        <h1 class="case-title">Month-End Close Automation</h1>
+        <p class="hero-text">A Python pipeline that runs a fintech's month-end close: it reads 7 messy source systems, checks data quality, reconciles bank, revenue and payroll with automatic root-cause hints, explains budget variances, and writes the management pack. It rebuilds, with synthetic data, the kind of automation that cut close reporting time by 80% in my current role.</p>
+        <div class="hero-cta">
+          <a href="https://github.com/joeygem/month-end-automation" class="btn" target="_blank" rel="noopener">View code on GitHub</a>
+        </div>
+        <ul class="tags case-tags"><li>Python</li><li>pandas</li><li>SQL (SQLite)</li><li>openpyxl</li><li>pytest</li><li>GitHub Actions</li></ul>
+
+        <div class="stats">
+          <div class="stat"><span class="stat-num">1.8s</span><span class="stat-label">for the full close, including both reports</span></div>
+          <div class="stat"><span class="stat-num">7</span><span class="stat-label">source systems in 5 different formats</span></div>
+          <div class="stat"><span class="stat-num">$0</span><span class="stat-label">left unexplained across 4 reconciliations</span></div>
+          <div class="stat"><span class="stat-num">15</span><span class="stat-label">automated tests, run monthly on a schedule</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container case">
+        <figure class="case-fig">
+          <img src="../assets/month-end/close_summary.jpg" alt="Top of the automated HTML close summary: status, revenue, EBITDA, gross margin and run time" />
+          <figcaption>The HTML close summary the pipeline writes every month, ready to email to the CFO.</figcaption>
+        </figure>
+
+        <div class="case-block">
+          <h2>The problem</h2>
+          <p>Month-end close at a payments company means pulling exports from the ERP, the transaction platform, two banks and payroll, each in its own format, then reconciling them by hand in Excel. It takes days, mistakes slip through, and the hardest part is <strong>explaining why</strong> the numbers differ.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>The data</h2>
+          <p><strong>Cedar Pay</strong> is a fictional money-transfer and bill-payment company. A generator creates 10 months of realistic extracts, about 110,000 transactions a month in USD, LBP and EUR, with the formats real systems produce: an Excel bank statement with a header block, a European CSV (<code>1.234,56</code>), mixed date formats and gzipped JSON. October has <strong>planted problems</strong>: duplicate journals, cut-off errors, a missing employee accrual, a keying error and unrecorded bank charges.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>The pipeline</h2>
+          <ol class="steps">
+            <li><strong>Ingest:</strong> one reader per source system, standardizing dates, number formats and currencies.</li>
+            <li><strong>Data-quality rules:</strong> duplicates, cut-off, missing cost centers, unknown accounts, unbalanced journals and bank balance continuity. Every action is logged; nothing is silently dropped.</li>
+            <li><strong>SQL warehouse:</strong> idempotent loads into SQLite, with the P&amp;L built by a single SQL query.</li>
+            <li><strong>Reconciliations:</strong> bank (matched by reference, then by amount and date), platform revenue and payroll, each with a root-cause hint.</li>
+            <li><strong>Variance analysis:</strong> materiality screening (≥ $5K <em>and</em> ≥ 10%) and plain-English commentary built from the underlying journals.</li>
+            <li><strong>Outputs:</strong> a 9-sheet Excel pack, an HTML email summary, a run log, and an exit code that stops the close when something is unexplained.</li>
+          </ol>
+        </div>
+
+        <div class="case-block">
+          <h2>What it found in October</h2>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Item</th><th>Amount</th><th>Root cause (found automatically)</th></tr></thead>
+              <tbody>
+                <tr><td>Bill-payment revenue</td><td>−$857</td><td>Equals the fees from 31 Oct: last day not posted (cut-off)</td></tr>
+                <tr><td>FX revenue</td><td>+$981</td><td>Equals the fees on reversed deals, wrongly recognized</td></tr>
+                <tr><td>Payroll (TECH)</td><td>−$4,617</td><td>Equals one employee's cost: a new joiner not accrued</td></tr>
+                <tr><td>Bank B (EUR)</td><td>−€180</td><td>Keying error: €7,425 booked as €7,245</td></tr>
+                <tr><td>Bank A (USD)</td><td>−$1,048</td><td>Bank charges on the statement but not booked</td></tr>
+                <tr><td>Bank A (USD)</td><td>$11K / $78K</td><td>Deposit in transit and outstanding payment (timing)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted">Plus 6 data-quality warnings handled: a duplicate journal, a November posting, an ISO date, missing cost centers, duplicate transactions and missing fees. January to September close with zero open items, which the tests check.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>Explaining the month</h2>
+          <p>EBITDA came in at <strong>$6.5K against a $76.2K budget</strong>. The pipeline flags the two material overspends and writes the explanation from the journals: a $38K outdoor brand campaign and a $22K statutory audit fee, neither of which was budgeted for October.</p>
+        </div>
+
+        <div class="fig-grid">
+          <figure class="case-fig">
+            <img src="../assets/month-end/ebitda_bridge.png" alt="EBITDA bridge from $76.2K budget to $6.5K actual" loading="lazy" />
+            <figcaption>EBITDA bridge, budget to actual.</figcaption>
+          </figure>
+          <figure class="case-fig">
+            <img src="../assets/month-end/revenue_trend.png" alt="Monthly revenue bars and EBITDA line for January to October" loading="lazy" />
+            <figcaption>Revenue and EBITDA, year to date.</figcaption>
+          </figure>
+        </div>
+
+        <div class="case-block callout">
+          <h2>Why it matters</h2>
+          <p>The value isn't only speed. The pipeline <strong>finds the cause</strong> of each difference and lists the exact journals to post, so the finance team reviews exceptions instead of rebuilding spreadsheets. It's tested and scheduled, and it stops itself if anything is left unexplained.</p>
+          <p class="muted">Synthetic data for a fictional company. The design mirrors real close processes, not any employer's systems.</p>
+        </div>
+
+        <div class="case-nav">
+          <a href="../index.html#projects" class="btn btn-ghost">← Back to projects</a>
+          <a href="https://github.com/joeygem/month-end-automation" class="btn" target="_blank" rel="noopener">View code</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Joey El Gemayel</div>
+  </footer>
+</body>
+</html>
