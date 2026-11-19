@@ -181,6 +181,20 @@ img, video { max-width: 100%; display: block; }
 .card-link:hover { text-decoration: underline; }
 .card-metric { font-family: "JetBrains Mono", monospace; color: var(--accent-2); font-size: .85rem; margin-top: 10px; }
 
+/* Apps */
+.apps { grid-template-columns: repeat(2, 1fr); margin-top: 36px; }
+.app-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+.app-card img { width: 100%; aspect-ratio: 1024 / 500; object-fit: cover; }
+.app-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.app-body h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.app-body > p { color: var(--muted); font-size: .95rem; }
+.app-alias { display: block; font-size: .8rem; font-weight: 500; margin-top: 2px; }
+.app-points { color: var(--muted); font-size: .9rem; padding-left: 18px; margin-top: 12px; }
+.app-points li { margin-bottom: 4px; }
+.app-body .btn { align-self: flex-start; margin-top: 20px; }
+.edu-note { font-size: .82rem !important; margin-top: 6px; }
+@media (max-width: 680px) { .apps { grid-template-columns: 1fr; } }
+
 /* Case study pages */
 .nav-static { display: flex !important; position: static !important; flex-direction: row !important; padding: 0 !important; border: 0 !important; background: none !important; }
 .case-hero { padding: 72px 0 56px; }

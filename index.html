@@ -18,6 +18,7 @@
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#apps">Apps</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#contact" class="btn btn-small">Contact</a>
@@ -60,7 +61,7 @@
         </div>
         <div class="about-text">
           <p>I started in <strong>credit and market risk</strong>, building scoring models, stress tests and risk profiles for a commercial bank. Since then I've worked on <strong>automation</strong>: replacing manual reporting with data pipelines and turning spreadsheets into interactive dashboards that executives use.</p>
-          <p>Today I'm a Senior Financial Data Analyst at a fintech, finishing an <strong>M.S. in Data Science</strong>, and I also build my own apps. I'm looking for roles where finance knowledge and data science skills are both needed.</p>
+          <p>Today I'm a Senior Financial Data Analyst at a fintech. I recently completed an <strong>M.S. in Data Science</strong>, and I've built and published <strong>two apps on Google Play</strong>. I'm looking for roles where finance knowledge and data science skills are both needed.</p>
           <div class="pillars">
             <div class="pillar"><h3>Risk &amp; Modeling</h3><p>Credit scoring, stress testing, market risk, forecasting.</p></div>
             <div class="pillar"><h3>Automation</h3><p>End-to-end pipelines that cut reporting time by 30–80%.</p></div>
@@ -80,8 +81,7 @@
         <div class="filters" role="tablist">
           <button class="filter active" data-filter="all">All</button>
           <button class="filter" data-filter="risk">Risk &amp; ML</button>
-          <button class="filter" data-filter="automation">Automation</button>
-          <button class="filter" data-filter="product">Products</button>
+          <button class="filter" data-filter="automation">Automation &amp; Data</button>
         </div>
 
         <div class="grid projects">
@@ -103,22 +103,16 @@
             <a href="projects/market-risk.html" class="card-link">Read case study →</a>
           </article>
 
-          <article class="card" data-cat="product">
-            <div class="card-top"><span class="badge badge-live">Case study</span><span class="card-icon">💳</span></div>
-            <h3>Smart Spender</h3>
-            <p>A personal finance mobile app I designed and built myself for tracking spending and managing budgets. It covers the full product cycle, from data model and UX to app store release.</p>
-            <ul class="tags"><li>Flutter</li><li>Dart</li><li>Personal finance</li></ul>
-          </article>
-
           <article class="card card-wide" data-cat="automation">
             <div class="card-media">
               <video src="assets/grocery-scraper-demo.mp4" controls preload="metadata" playsinline></video>
             </div>
             <div class="card-body">
               <div class="card-top"><span class="badge badge-live">Demo</span><span class="card-icon">🛒</span></div>
-              <h3>Lebanon Grocery Price Tracker</h3>
-              <p>A Python scraper that collects grocery prices on a schedule and builds a historical dataset to measure food-price inflation. The video shows the data collection running.</p>
-              <ul class="tags"><li>Python</li><li>BeautifulSoup</li><li>pandas</li><li>Web scraping</li></ul>
+              <h3>Grocery Price Scraper (Spinneys Lebanon)</h3>
+              <p>A Python scraper that collects a supermarket's online catalog into a SQLite database: product, brand, category, price and stock. The first snapshot covers 100 products across 35 categories and 34 brands. Next step: run it on a schedule to track food-price inflation over time.</p>
+              <p class="card-metric">100 products · 35 categories · SQLite</p>
+              <ul class="tags"><li>Python</li><li>BeautifulSoup</li><li>SQLite</li><li>Web scraping</li></ul>
             </div>
           </article>
 
@@ -132,8 +126,9 @@
           <article class="card" data-cat="risk">
             <div class="card-top"><span class="badge badge-soon">In development</span><span class="card-icon">🎲</span></div>
             <h3>Lottery Randomness Study</h3>
-            <p>Scrapes historical lottery draws and tests whether they are actually random using chi-square tests, frequency analysis and Monte Carlo simulation. A short exercise in statistical rigor.</p>
-            <ul class="tags"><li>Python</li><li>SciPy</li><li>Statistics</li></ul>
+            <p>Every Lebanese lottery draw since 2002, scraped with BeautifulSoup: 2,355 draws. Next: clean the mixed date formats, then test whether the draws are truly random with chi-square tests, frequency analysis and Monte Carlo simulation.</p>
+            <p class="card-metric">2,355 real draws · 2002–2025</p>
+            <ul class="tags"><li>Python</li><li>BeautifulSoup</li><li>SciPy</li><li>Statistics</li></ul>
           </article>
         </div>
 
@@ -141,13 +136,53 @@
           <h3 class="side-title">Also built</h3>
           <p class="side-lead">Apps and games I designed and shipped outside work.</p>
           <ul class="side-list">
-            <li><strong>MemoirGrid</strong> Private diary app with lock</li>
             <li><strong>Night Draft</strong> Dream journal app</li>
             <li><strong>AI Restaurant Menu</strong> Smart digital menus</li>
             <li><strong>Beauty Booking</strong> Appointment booking app</li>
             <li><strong>e-nvites</strong> Digital invitations</li>
             <li><strong>Games</strong> Zombie Brainz, Dino Village &amp; more</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPS -->
+    <section class="section" id="apps">
+      <div class="container">
+        <p class="eyebrow mono">Shipped products</p>
+        <h2 class="section-title">Apps on Google Play</h2>
+        <p class="section-lead">Two privacy-first Android apps I designed, built and published end to end. Everything stays encrypted on the device: no account, no servers.</p>
+
+        <div class="grid apps">
+          <article class="app-card">
+            <img src="assets/apps/smart_spender_feature.png" alt="Smart Spender: your private offline expense tracker" loading="lazy" />
+            <div class="app-body">
+              <h3>Smart Spender <span class="muted app-alias">listed as "Offline Budget &amp; Expense"</span></h3>
+              <p>A personal finance tracker with multi-currency wallets, budgets and recurring rules, plus one-tap PDF statements and CSV exports.</p>
+              <ul class="app-points">
+                <li>AES-256 encrypted database, key held in the device's secure storage</li>
+                <li>Biometric lock, fully offline</li>
+                <li>PDF and CSV reports generated on the device</li>
+              </ul>
+              <ul class="tags"><li>Flutter</li><li>Dart</li><li>Hive (AES-256)</li><li>PDF / CSV</li></ul>
+              <a href="https://play.google.com/store/apps/details?id=com.localcoredev.smart_spender" class="btn btn-small" target="_blank" rel="noopener">Get it on Google Play</a>
+            </div>
+          </article>
+
+          <article class="app-card">
+            <img src="assets/apps/memoirgrid_feature.png" alt="MemoirGrid: a private, offline diary" loading="lazy" />
+            <div class="app-body">
+              <h3>MemoirGrid: Diary &amp; Lock</h3>
+              <p>A scrapbook-style journal with a mood tracker: a "year in dots" view and mood-by-weekday and mood-by-weather insights. It can hide behind a working calculator.</p>
+              <ul class="app-points">
+                <li>SQLCipher-encrypted database</li>
+                <li>Available in 18 languages</li>
+                <li>Printable PDF journal generated on the device</li>
+              </ul>
+              <ul class="tags"><li>Flutter</li><li>Dart</li><li>SQLCipher</li><li>18 languages</li></ul>
+              <a href="https://play.google.com/store/apps/details?id=com.memoirgrid.diary" class="btn btn-small" target="_blank" rel="noopener">Get it on Google Play</a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -219,12 +254,12 @@
           </div>
           <div class="skill-group">
             <h3>Product</h3>
-            <ul class="tags"><li>Flutter</li><li>Dart</li><li>Git</li><li>App store releases</li></ul>
+            <ul class="tags"><li>Flutter</li><li>Dart</li><li>SQLCipher</li><li>Git</li><li>Google Play releases</li></ul>
           </div>
         </div>
 
         <div class="edu">
-          <div class="edu-item"><span class="mono">2026</span><h3>M.S. Data Science</h3><p>Rome Business School</p></div>
+          <div class="edu-item"><span class="mono">2026</span><h3>M.S. Data Science</h3><p>Rome Business School &amp; VIU · Final grade 30/30 (Honors)</p><p class="edu-note">Capstone: revenue forecasting, client segmentation (K-Means, PCA) and churn prediction (XGBoost), with Power BI dashboards</p></div>
           <div class="edu-item"><span class="mono">2016</span><h3>B.A. Financial Engineering</h3><p>Notre Dame University, Lebanon</p></div>
           <div class="edu-item"><span class="mono">2022</span><h3>IBM Data Science</h3><p>Professional Certificate</p></div>
           <div class="edu-item"><span class="mono">2019</span><h3>Risk in Financial Services</h3><p>CISI</p></div>
