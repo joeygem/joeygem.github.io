@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Credit Risk Scoring Model | Joey El Gemayel</title>
+  <meta name="description" content="PD model and credit scorecard with WoE binning, logistic regression and an XGBoost + SHAP challenger on 30,000 borrowers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../index.html" class="logo">JG<span>.</span></a>
+      <nav class="nav-links nav-static">
+        <a href="../index.html#projects">← All projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="container">
+        <p class="eyebrow mono">Case study · Risk &amp; ML</p>
+        <h1 class="case-title">Credit Risk Scoring Model</h1>
+        <p class="hero-text">A probability-of-default model and points-based credit scorecard built the way banks build them, compared against an XGBoost model explained with SHAP. It rebuilds, on public data, the credit scoring work I did at a commercial bank.</p>
+        <div class="hero-cta">
+          <a href="https://github.com/joeygem/credit-risk-scoring" class="btn" target="_blank" rel="noopener">View code on GitHub</a>
+        </div>
+        <ul class="tags case-tags"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>XGBoost</li><li>SHAP</li><li>WoE / IV</li></ul>
+
+        <div class="stats">
+          <div class="stat"><span class="stat-num">37%</span><span class="stat-label">fewer defaults at an 80% approval rate</span></div>
+          <div class="stat"><span class="stat-num">9×</span><span class="stat-label">default-rate gap, riskiest vs. safest decile</span></div>
+          <div class="stat"><span class="stat-num">0.55</span><span class="stat-label">Gini (XGBoost), 0.52 scorecard</span></div>
+          <div class="stat"><span class="stat-num">30K</span><span class="stat-label">borrowers, 6 months of history</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container case">
+        <div class="case-block">
+          <h2>The problem</h2>
+          <p>A lender has to decide who gets credit. If the bar is too loose, defaults eat the margin; if it's too strict, good customers are turned away. The goal is a <strong>risk score</strong> that ranks applicants reliably, maps to a clear approval cut-off, and can be explained to a credit committee and a regulator.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>Data</h2>
+          <p><a class="link" href="https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients" target="_blank" rel="noopener">UCI Default of Credit Card Clients</a>: 30,000 cardholders with 6 months of repayment status, bills and payments, and a 22.1% default rate. I built 13 behavioral features covering delinquency, utilization, repayment ratios and credit limit. <strong>Sex, marital status, education and age were excluded</strong> on fair-lending grounds.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>Approach</h2>
+          <ol class="steps">
+            <li><strong>WoE binning, written from scratch.</strong> Starting from quantile bins, any bin under 5% of borrowers is merged, and neighboring bins are merged until the bad rate moves in one direction only, so the score always behaves as expected.</li>
+            <li><strong>Feature selection.</strong> Keep features with Information Value ≥ 0.02 and drop the weaker of any highly correlated pair.</li>
+            <li><strong>Sign-constrained logistic regression.</strong> Any feature whose coefficient contradicts the WoE logic is removed, and the model is refit.</li>
+            <li><strong>Scaling to points.</strong> 600 points = 50:1 odds, and every 20 points doubles the odds. The result is a points table a loan officer can read.</li>
+            <li><strong>Challenger model.</strong> XGBoost with early stopping, explained with exact TreeSHAP values.</li>
+          </ol>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/credit-risk/iv_ranking.png" alt="Bar chart of Information Value by feature; delinquency features are strongest at around 0.85" loading="lazy" />
+          <figcaption>The delinquency features carry the most information. Green bars are the 9 features used in the final scorecard.</figcaption>
+        </figure>
+
+        <div class="case-block">
+          <h2>Results</h2>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Model</th><th>AUC</th><th>Gini</th><th>KS</th><th>Brier</th></tr></thead>
+              <tbody>
+                <tr><td>WoE scorecard <span class="muted">(9 features)</span></td><td>0.758</td><td>0.515</td><td>0.397</td><td>0.140</td></tr>
+                <tr><td>XGBoost <span class="muted">(13 features)</span></td><td>0.777</td><td>0.554</td><td>0.427</td><td>0.135</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="fig-grid">
+          <figure class="case-fig">
+            <img src="../assets/credit-risk/roc_curve.png" alt="ROC curves for scorecard (AUC 0.758) and XGBoost (AUC 0.777)" loading="lazy" />
+            <figcaption>Both models separate defaulters from non-defaulters well on held-out data.</figcaption>
+          </figure>
+          <figure class="case-fig">
+            <img src="../assets/credit-risk/calibration.png" alt="Calibration curves close to the diagonal" loading="lazy" />
+            <figcaption>Predicted default probabilities closely match the observed default rates.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/credit-risk/score_bands.png" alt="Default rate by score decile, falling from 67% to 7%" loading="lazy" />
+          <figcaption>Default rate falls steadily with score, from 67% in the riskiest decile to 7.5% in the safest.</figcaption>
+        </figure>
+
+        <div class="case-block">
+          <h2>Business impact</h2>
+          <p>The scorecard turns risk appetite into a single number. With a <strong>cut-off score of 505</strong>, the lender approves 80% of applicants, and the default rate in the approved book falls from <strong>22.1% to 14.0%</strong>, a 37% reduction compared with approving everyone.</p>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/credit-risk/approval_tradeoff.png" alt="Approval rate vs default rate curve with 80% approval point highlighted" loading="lazy" />
+          <figcaption>Each point on the curve is a possible credit policy; the business picks how much risk to accept.</figcaption>
+        </figure>
+
+        <div class="case-block">
+          <h2>What drives default?</h2>
+          <p>SHAP shows that recent and maximum delinquency matter most, followed by credit limit and months with no payment. This matches the scorecard's IV ranking, so both models picked up the same risk signals.</p>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/credit-risk/shap_summary.png" alt="SHAP beeswarm plot; max months late and latest months late are the top drivers" loading="lazy" />
+        </figure>
+
+        <div class="case-block callout">
+          <h2>Recommendation</h2>
+          <p>XGBoost adds about 4 Gini points, but I'd put the <strong>scorecard into production</strong>: every decision can be traced to points on a table, which credit committees and regulators expect, and its accuracy is close. XGBoost stays on as a <strong>challenger</strong> for benchmarking and monitoring.</p>
+          <p class="muted">Next steps: PSI stability monitoring, reject inference, and Expected Loss (PD × LGD × EAD) cut-off optimization.</p>
+        </div>
+
+        <div class="case-nav">
+          <a href="../index.html#projects" class="btn btn-ghost">← Back to projects</a>
+          <a href="https://github.com/joeygem/credit-risk-scoring" class="btn" target="_blank" rel="noopener">View code</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Joey El Gemayel</div>
+  </footer>
+</body>
+</html>

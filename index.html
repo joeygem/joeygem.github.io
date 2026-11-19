@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joey El Gemayel | Financial Data Scientist</title>
+  <meta name="description" content="Financial Data Scientist with 9+ years in risk, FP&A and automation. Python, SQL, Power BI, machine learning." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a href="#top" class="logo">JG<span>.</span></a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact" class="btn btn-small">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow mono">Finance × Data Science × Automation</p>
+        <h1>Joey El Gemayel</h1>
+        <h2 class="hero-sub">Financial Data Scientist turning risk, finance and operational data into <span class="accent">automated pipelines, models and decisions.</span></h2>
+        <p class="hero-text">9+ years across credit &amp; market risk, FP&amp;A and process automation at a leading Lebanese bank, a fintech and a global engineering firm. M.S. in Data Science.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn">View projects</a>
+          <a href="https://linkedin.com/in/joey-el-gemayel-682924b0" class="btn btn-ghost" target="_blank" rel="noopener">View LinkedIn</a>
+        </div>
+        <ul class="hero-links">
+          <li><a href="https://github.com/joeygem" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/joey-el-gemayel-682924b0" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+
+        <div class="stats">
+          <div class="stat"><span class="stat-num" data-count="80" data-suffix="%">0</span><span class="stat-label">less time on month-end reporting</span></div>
+          <div class="stat"><span class="stat-num" data-count="200" data-prefix="$" data-suffix="K">0</span><span class="stat-label">annual savings identified</span></div>
+          <div class="stat"><span class="stat-num" data-count="10" data-suffix="+">0</span><span class="stat-label">data sources unified</span></div>
+          <div class="stat"><span class="stat-num" data-count="9" data-suffix="+">0</span><span class="stat-label">years in finance &amp; risk</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div>
+          <p class="eyebrow mono">About</p>
+          <h2 class="section-title">I build the systems behind financial decisions.</h2>
+        </div>
+        <div class="about-text">
+          <p>I started in <strong>credit and market risk</strong>, building scoring models, stress tests and risk profiles for a commercial bank. Since then I've worked on <strong>automation</strong>: replacing manual reporting with data pipelines and turning spreadsheets into interactive dashboards that executives use.</p>
+          <p>Today I'm a Senior Financial Data Analyst at a fintech, finishing an <strong>M.S. in Data Science</strong>, and I also build my own apps. I'm looking for roles where finance knowledge and data science skills are both needed.</p>
+          <div class="pillars">
+            <div class="pillar"><h3>Risk &amp; Modeling</h3><p>Credit scoring, stress testing, market risk, forecasting.</p></div>
+            <div class="pillar"><h3>Automation</h3><p>End-to-end pipelines that cut reporting time by 30–80%.</p></div>
+            <div class="pillar"><h3>Insight</h3><p>Power BI dashboards and analysis presented to senior management.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section section-alt" id="projects">
+      <div class="container">
+        <p class="eyebrow mono">Featured work</p>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-lead">Most of my professional work is confidential, so these projects rebuild the same kinds of problems using public or synthetic data.</p>
+
+        <div class="filters" role="tablist">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="risk">Risk &amp; ML</button>
+          <button class="filter" data-filter="automation">Automation</button>
+          <button class="filter" data-filter="product">Products</button>
+        </div>
+
+        <div class="grid projects">
+          <article class="card" data-cat="risk">
+            <div class="card-top"><span class="badge badge-live">Case study</span><span class="card-icon">📉</span></div>
+            <h3>Credit Risk Scoring Model</h3>
+            <p>A probability-of-default model and points-based scorecard for 30,000 borrowers, compared against an XGBoost model explained with SHAP. It rebuilds the credit scoring work I did in banking.</p>
+            <p class="card-metric">37% fewer defaults at 80% approval</p>
+            <ul class="tags"><li>Python</li><li>XGBoost</li><li>SHAP</li><li>WoE / IV</li></ul>
+            <a href="projects/credit-risk.html" class="card-link">Read case study →</a>
+          </article>
+
+          <article class="card" data-cat="risk">
+            <div class="card-top"><span class="badge badge-live">Case study</span><span class="card-icon">📊</span></div>
+            <h3>Market Risk Engine</h3>
+            <p>VaR and Expected Shortfall for a $10M multi-asset portfolio using four models, backtested over 18 years with Basel tests and run through 11 stress scenarios, with an interactive dashboard.</p>
+            <p class="card-metric">Champion model passes backtest: 49 vs 46 exceptions</p>
+            <ul class="tags"><li>Python</li><li>Monte Carlo</li><li>Streamlit</li><li>yfinance</li></ul>
+            <a href="projects/market-risk.html" class="card-link">Read case study →</a>
+          </article>
+
+          <article class="card" data-cat="product">
+            <div class="card-top"><span class="badge badge-live">Case study</span><span class="card-icon">💳</span></div>
+            <h3>Smart Spender</h3>
+            <p>A personal finance mobile app I designed and built myself for tracking spending and managing budgets. It covers the full product cycle, from data model and UX to app store release.</p>
+            <ul class="tags"><li>Flutter</li><li>Dart</li><li>Personal finance</li></ul>
+          </article>
+
+          <article class="card card-wide" data-cat="automation">
+            <div class="card-media">
+              <video src="assets/grocery-scraper-demo.mp4" controls preload="metadata" playsinline></video>
+            </div>
+            <div class="card-body">
+              <div class="card-top"><span class="badge badge-live">Demo</span><span class="card-icon">🛒</span></div>
+              <h3>Lebanon Grocery Price Tracker</h3>
+              <p>A Python scraper that collects grocery prices on a schedule and builds a historical dataset to measure food-price inflation. The video shows the data collection running.</p>
+              <ul class="tags"><li>Python</li><li>BeautifulSoup</li><li>pandas</li><li>Web scraping</li></ul>
+            </div>
+          </article>
+
+          <article class="card" data-cat="automation">
+            <div class="card-top"><span class="badge badge-soon">In development</span><span class="card-icon">⚙️</span></div>
+            <h3>Automated Month-End Reporting</h3>
+            <p>An end-to-end pipeline that combines ledgers from multiple sources, reconciles them, and produces budget-vs-actual variance reports and a dashboard. It rebuilds, with synthetic data, the workflow that cut close time by 80%.</p>
+            <ul class="tags"><li>Python</li><li>SQL</li><li>Power BI</li><li>Power Query</li></ul>
+          </article>
+
+          <article class="card" data-cat="risk">
+            <div class="card-top"><span class="badge badge-soon">In development</span><span class="card-icon">🎲</span></div>
+            <h3>Lottery Randomness Study</h3>
+            <p>Scrapes historical lottery draws and tests whether they are actually random using chi-square tests, frequency analysis and Monte Carlo simulation. A short exercise in statistical rigor.</p>
+            <ul class="tags"><li>Python</li><li>SciPy</li><li>Statistics</li></ul>
+          </article>
+        </div>
+
+        <div class="side">
+          <h3 class="side-title">Also built</h3>
+          <p class="side-lead">Apps and games I designed and shipped outside work.</p>
+          <ul class="side-list">
+            <li><strong>MemoirGrid</strong> Private diary app with lock</li>
+            <li><strong>Night Draft</strong> Dream journal app</li>
+            <li><strong>AI Restaurant Menu</strong> Smart digital menus</li>
+            <li><strong>Beauty Booking</strong> Appointment booking app</li>
+            <li><strong>e-nvites</strong> Digital invitations</li>
+            <li><strong>Games</strong> Zombie Brainz, Dino Village &amp; more</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="container">
+        <p class="eyebrow mono">Career</p>
+        <h2 class="section-title">Experience</h2>
+        <ol class="timeline">
+          <li>
+            <span class="tl-date mono">Apr 2025 – Present</span>
+            <h3>Senior Specialist, Financial Data Analyst</h3>
+            <p class="tl-org">OMT (Online Money Transfer) · Beirut</p>
+            <ul>
+              <li>Automated financial reporting end to end across 10+ sources, cutting month-end close reporting time by <strong>80%</strong>.</li>
+              <li>Built Power BI dashboards for KPIs, budget vs. actuals and trends.</li>
+              <li>Found <strong>$200K</strong> in annual savings through cost analysis by department and service line.</li>
+            </ul>
+          </li>
+          <li>
+            <span class="tl-date mono">Jun 2023 – Sep 2024</span>
+            <h3>HS&amp;E Consultant, Operational Risk Analytics</h3>
+            <p class="tl-org">Bechtel Corporation · NEOM, KSA</p>
+            <ul>
+              <li>Analyzed incident data to produce insights that more than 70% of safety managers used to set their monthly focus.</li>
+              <li>Automated reporting, cutting report generation time by <strong>30%</strong>.</li>
+            </ul>
+          </li>
+          <li>
+            <span class="tl-date mono">Dec 2020 – Dec 2022</span>
+            <h3>Senior Financial Analyst, Data Analytics</h3>
+            <p class="tl-org">Fransabank SAL · Risk Department</p>
+            <ul>
+              <li>Ran stress tests and analytical reviews to monitor the bank's risk exposure.</li>
+              <li>Automated risk report generation, cutting manual effort by <strong>40%+</strong>.</li>
+            </ul>
+          </li>
+          <li>
+            <span class="tl-date mono">Jun 2017 – Dec 2020</span>
+            <h3>Credit / Market Risk Officer</h3>
+            <p class="tl-org">Fransabank SAL · Risk Department</p>
+            <ul>
+              <li>Developed credit scoring models and risk assessment frameworks.</li>
+              <li>Assessed interest rate, FX, equity and commodity risk to support hedging decisions.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <p class="eyebrow mono">Toolkit</p>
+        <h2 class="section-title">Skills</h2>
+        <div class="grid skills">
+          <div class="skill-group">
+            <h3>Data Science</h3>
+            <ul class="tags"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>SQL</li><li>Statistics</li><li>Forecasting</li><li>Web scraping</li></ul>
+          </div>
+          <div class="skill-group">
+            <h3>Finance &amp; Risk</h3>
+            <ul class="tags"><li>Credit risk</li><li>Market risk</li><li>Stress testing</li><li>Financial modeling</li><li>Budgeting &amp; FP&amp;A</li><li>Scenario analysis</li></ul>
+          </div>
+          <div class="skill-group">
+            <h3>Automation &amp; BI</h3>
+            <ul class="tags"><li>Power BI</li><li>Power Query</li><li>Excel</li><li>Report automation</li><li>Data pipelines</li></ul>
+          </div>
+          <div class="skill-group">
+            <h3>Product</h3>
+            <ul class="tags"><li>Flutter</li><li>Dart</li><li>Git</li><li>App store releases</li></ul>
+          </div>
+        </div>
+
+        <div class="edu">
+          <div class="edu-item"><span class="mono">2026</span><h3>M.S. Data Science</h3><p>Rome Business School</p></div>
+          <div class="edu-item"><span class="mono">2016</span><h3>B.A. Financial Engineering</h3><p>Notre Dame University, Lebanon</p></div>
+          <div class="edu-item"><span class="mono">2022</span><h3>IBM Data Science</h3><p>Professional Certificate</p></div>
+          <div class="edu-item"><span class="mono">2019</span><h3>Risk in Financial Services</h3><p>CISI</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact">
+      <div class="container contact-inner">
+        <p class="eyebrow mono">Contact</p>
+        <h2 class="section-title">Let's talk about data in finance.</h2>
+        <p class="section-lead">I'm open to Data Science, Financial Analytics and Finance Automation roles, remote or on-site.</p>
+        <div class="hero-cta center">
+          <a href="mailto:gemayel.joey@gmail.com" class="btn">Email me</a>
+          <a href="https://linkedin.com/in/joey-el-gemayel-682924b0" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="langs">Arabic (native) · English (fluent) · French (intermediate)</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Joey El Gemayel</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

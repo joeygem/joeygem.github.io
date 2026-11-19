@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Market Risk Engine | Joey El Gemayel</title>
+  <meta name="description" content="VaR & Expected Shortfall engine for a $10M multi-asset portfolio: four models, 18-year backtest with Kupiec, Christoffersen and Basel traffic light, 11 stress scenarios." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../index.html" class="logo">JG<span>.</span></a>
+      <nav class="nav-links nav-static">
+        <a href="../index.html#projects">← All projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="container">
+        <p class="eyebrow mono">Case study · Risk &amp; ML</p>
+        <h1 class="case-title">Market Risk Engine</h1>
+        <p class="hero-text">A Value-at-Risk and Expected Shortfall engine for a $10M multi-asset portfolio. It compares four models, backtests them on 18 years of daily forecasts using regulatory tests, and runs 11 stress scenarios, with an interactive dashboard. It rebuilds the toolkit I used as a Market Risk Officer.</p>
+        <div class="hero-cta">
+          <a href="https://github.com/joeygem/market-risk-engine" class="btn" target="_blank" rel="noopener">View code on GitHub</a>
+        </div>
+        <ul class="tags case-tags"><li>Python</li><li>NumPy</li><li>SciPy</li><li>Monte Carlo</li><li>Streamlit</li><li>Plotly</li><li>yfinance</li></ul>
+
+        <div class="stats">
+          <div class="stat"><span class="stat-num">49 / 46</span><span class="stat-label">exceptions vs. expected: champion model passes</span></div>
+          <div class="stat"><span class="stat-num">88%</span><span class="stat-label">of time in Basel green zone, never red</span></div>
+          <div class="stat"><span class="stat-num">83%</span><span class="stat-label">of risk from 45% of capital (equities)</span></div>
+          <div class="stat"><span class="stat-num">18 yrs</span><span class="stat-label">of daily backtests, 2008 crisis included</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container case">
+        <figure class="case-fig">
+          <img src="../assets/market-risk/dashboard.jpg" alt="Streamlit dashboard showing VaR by model, sliders for portfolio weights and the backtest chart" />
+          <figcaption>The interactive dashboard: change the weights, confidence level or horizon, and the VaR, backtest, risk decomposition and stress tests update.</figcaption>
+        </figure>
+
+        <div class="case-block">
+          <h2>The problem</h2>
+          <p>Risk managers need one number that answers <em>"how much could we lose tomorrow?"</em>, and they need to trust it. Many models look fine in calm markets and fail in a crisis. Regulators check this by <strong>backtesting</strong>: counting how often actual losses exceeded the VaR. A model with too many exceptions costs the bank extra capital.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>Portfolio &amp; data</h2>
+          <p>A $10M portfolio of 10 ETFs covering every market risk class: <strong>equity</strong> (SPY, EFA, EEM), <strong>rates</strong> (TLT, IEF), <strong>credit</strong> (LQD, HYG), <strong>commodity</strong> (GLD, USO) and <strong>FX</strong> (EUR/USD). It uses 4,918 trading days of Yahoo Finance prices from May 2007 to November 2026.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>Four models</h2>
+          <ol class="steps">
+            <li><strong>Historical simulation:</strong> the empirical loss quantile of the last 250 days.</li>
+            <li><strong>Parametric:</strong> RiskMetrics EWMA covariance with a normal distribution.</li>
+            <li><strong>Monte Carlo:</strong> 50,000 multivariate Student-t scenarios, to capture fat tails and assets crashing together.</li>
+            <li><strong>Filtered Historical Simulation:</strong> past returns rescaled to today's volatility. It keeps the real shape of crashes and still reacts quickly.</li>
+          </ol>
+          <p>Plus Expected Shortfall (the 97.5% measure FRTB uses), Euler risk decomposition and 10-day Basel scaling.</p>
+        </div>
+
+        <div class="case-block">
+          <h2>Backtest results</h2>
+          <p>Each model forecast VaR every day using only past data, then was compared with that day's actual P&amp;L, across 4,568 days.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Model</th><th>Exceptions</th><th>Kupiec p</th><th>Green zone</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Filtered Historical</strong></td><td>49</td><td>0.63 ✓</td><td>88%</td></tr>
+                <tr><td>Monte Carlo (t)</td><td>66</td><td>0.005</td><td>75%</td></tr>
+                <tr><td>Historical</td><td>66</td><td>0.005</td><td>68%</td></tr>
+                <tr><td>Parametric (normal)</td><td>82</td><td>&lt;0.001</td><td>52%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted">Expected exceptions at 99%: 45.7. Only FHS passes the Kupiec test, and it never entered the red zone.</p>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/market-risk/traffic_light.png" alt="Rolling 250-day exceptions per model against Basel green, yellow and red zones" loading="lazy" />
+          <figcaption>The Basel traffic light over time. Parametric VaR (blue) entered the red zone after COVID; FHS (green) mostly stayed in the green.</figcaption>
+        </figure>
+
+        <figure class="case-fig">
+          <img src="../assets/market-risk/covid_zoom.png" alt="VaR lines from four models around the March 2020 crash" loading="lazy" />
+          <figcaption>COVID up close: Historical VaR (amber) reacted late, then stayed stuck at about −$430K for a year (the "ghost effect"). FHS adapted within days.</figcaption>
+        </figure>
+
+        <div class="case-block">
+          <h2>Why the textbook model fails</h2>
+          <p>Portfolio returns have an <strong>excess kurtosis of 14.8</strong>, and a Student-t fit gives about 3 degrees of freedom. Crash days happen far more often than a normal distribution predicts, which is why the parametric model has nearly twice the expected exceptions.</p>
+        </div>
+
+        <div class="fig-grid">
+          <figure class="case-fig">
+            <img src="../assets/market-risk/fat_tails.png" alt="Return distribution on log scale with normal and Student-t fits" loading="lazy" />
+            <figcaption>On a log scale the fat tails are obvious.</figcaption>
+          </figure>
+          <figure class="case-fig">
+            <img src="../assets/market-risk/risk_contribution.png" alt="Capital weight vs VaR share by risk class" loading="lazy" />
+            <figcaption>Equities are 45% of the capital but 83% of the risk.</figcaption>
+          </figure>
+        </div>
+
+        <div class="case-block">
+          <h2>Stress testing</h2>
+          <p>Replaying the <strong>Lehman crisis would cost $2.13M (−21%)</strong> and the 2022 rate shock $2.09M. That's about 4× the 10-day 99% VaR, which is why VaR alone is never enough.</p>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/market-risk/stress_tests.png" alt="Bar chart of P&L under 11 stress scenarios" loading="lazy" />
+        </figure>
+
+        <div class="case-block">
+          <h2>The hedge that broke</h2>
+          <p>For 15 years, long Treasuries moved against equities and cushioned the portfolio in sell-offs. In late 2022 that correlation <strong>turned positive</strong>, and it is +0.27 today. A 60/40-style portfolio is now less diversified than its history suggests.</p>
+        </div>
+
+        <figure class="case-fig">
+          <img src="../assets/market-risk/stock_bond_correlation.png" alt="Rolling one-year correlation between SPY and TLT, negative until 2022 then positive" loading="lazy" />
+        </figure>
+
+        <div class="case-block callout">
+          <h2>Recommendation</h2>
+          <p>Use <strong>Filtered Historical Simulation</strong> as the production VaR model: it is the only one that passes the regulatory backtest, and it reacts to volatility changes. Keep Monte Carlo-t for what-if analysis, and report <strong>stress losses next to VaR</strong> to the risk committee.</p>
+          <p class="muted">Honest caveat: every model fails the Christoffersen independence test, because exceptions cluster in crises. Next step: GARCH filtering and stressed VaR.</p>
+        </div>
+
+        <div class="case-nav">
+          <a href="../index.html#projects" class="btn btn-ghost">← Back to projects</a>
+          <a href="https://github.com/joeygem/market-risk-engine" class="btn" target="_blank" rel="noopener">View code</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Joey El Gemayel</div>
+  </footer>
+</body>
+</html>
