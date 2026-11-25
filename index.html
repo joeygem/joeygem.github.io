@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
   <header class="nav" id="top">
     <div class="container nav-inner">
       <a href="#top" class="logo"><img src="assets/brand/jg-mark-72.png" alt="Joey El Gemayel" width="51" height="36" /></a>
@@ -29,6 +30,7 @@
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#demos">Demos</a>
         <a href="#apps">Apps</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
@@ -41,8 +43,8 @@
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-inner">
-        <p class="eyebrow mono">Finance × Data Science × Automation</p>
         <h1>Joey El Gemayel</h1>
+        <p class="eyebrow mono hero-tagline">Finance × Data Science × Automation</p>
         <h2 class="hero-sub">Financial Data Scientist turning risk, finance and operational data into <span class="accent">automated pipelines, models and decisions.</span></h2>
         <p class="hero-text">9+ years across credit &amp; market risk, FP&amp;A and process automation at a leading Lebanese bank, a fintech and a global engineering firm. M.S. in Data Science.</p>
         <div class="hero-cta">
@@ -144,8 +146,133 @@
       </div>
     </section>
 
+    <!-- LIVE DEMOS -->
+    <section class="section" id="demos">
+      <div class="container">
+        <p class="eyebrow mono">Try it yourself</p>
+        <h2 class="section-title">Live demos</h2>
+        <p class="section-lead">These run on the real outputs of the projects above: the scorecard's points table, 18 years of daily VaR forecasts and the stress-test results.</p>
+
+        <div class="demo-tabs" role="tablist" aria-label="Demos">
+          <button class="demo-tab active" role="tab" aria-selected="true" aria-controls="demo-credit" id="tab-credit">Credit scorecard</button>
+          <button class="demo-tab" role="tab" aria-selected="false" aria-controls="demo-var" id="tab-var" tabindex="-1">VaR backtest</button>
+          <button class="demo-tab" role="tab" aria-selected="false" aria-controls="demo-stress" id="tab-stress" tabindex="-1">Stress tests</button>
+        </div>
+
+        <!-- Credit scorecard -->
+        <div class="demo-panel" id="demo-credit" role="tabpanel" aria-labelledby="tab-credit">
+          <div class="demo-grid">
+            <div class="demo-box">
+              <div class="demo-head">
+                <h3>Score a borrower</h3>
+                <div class="chips" id="cs-presets">
+                  <button class="chip active" data-preset="typical">Typical</button>
+                  <button class="chip" data-preset="strong">Strong</button>
+                  <button class="chip" data-preset="stretched">Stretched</button>
+                </div>
+              </div>
+              <form class="cs-form" id="cs-form" onsubmit="return false"></form>
+            </div>
+            <div class="demo-box cs-result" aria-live="polite">
+              <p class="demo-label">Credit score</p>
+              <p class="cs-score mono" id="cs-score">555</p>
+              <div class="cs-scale" aria-hidden="true">
+                <div class="cs-scale-bar"><span class="cs-cutoff" id="cs-cutoff"></span><span class="cs-needle" id="cs-needle"></span></div>
+                <div class="cs-scale-ends mono"><span>430</span><span>cut-off 505</span><span>580</span></div>
+              </div>
+              <p class="cs-decision" id="cs-decision"></p>
+              <dl class="cs-facts">
+                <div><dt>Default rate in this score band</dt><dd class="mono" id="cs-band"></dd></div>
+                <div><dt>Biggest drag on the score</dt><dd id="cs-drag"></dd></div>
+              </dl>
+              <p class="demo-note">Default rates are observed on the 9,000-borrower test set, grouped into ten score bands.</p>
+            </div>
+          </div>
+
+          <div class="demo-box cs-tradeoff">
+            <div class="demo-head">
+              <h3>Choose the approval rate</h3>
+              <output class="mono" id="ap-out" for="ap-range">80%</output>
+            </div>
+            <input type="range" id="ap-range" min="10" max="100" step="10" value="80" aria-label="Approval rate" />
+            <div class="ap-bars">
+              <div class="ap-row"><span>Approve everyone</span><div class="ap-track"><div class="ap-fill ap-base" id="ap-base"></div></div><span class="mono" id="ap-base-val"></span></div>
+              <div class="ap-row"><span>Approve best <b id="ap-pct">80%</b> by score</span><div class="ap-track"><div class="ap-fill" id="ap-model"></div></div><span class="mono" id="ap-model-val"></span></div>
+            </div>
+            <p class="ap-summary" id="ap-summary"></p>
+          </div>
+        </div>
+
+        <!-- VaR backtest -->
+        <div class="demo-panel" id="demo-var" role="tabpanel" aria-labelledby="tab-var" hidden>
+          <div class="demo-box">
+            <div class="demo-controls">
+              <div>
+                <p class="demo-label">Model</p>
+                <div class="chips" id="var-models">
+                  <button class="chip" data-model="historical">Historical</button>
+                  <button class="chip" data-model="parametric">EWMA parametric</button>
+                  <button class="chip" data-model="monte_carlo">Monte Carlo (t)</button>
+                  <button class="chip active" data-model="filtered_historical">Filtered historical ★</button>
+                </div>
+              </div>
+              <div>
+                <p class="demo-label">Period</p>
+                <div class="chips" id="var-periods">
+                  <button class="chip active" data-from="2008-09-19" data-to="2026-12-31">All 18 years</button>
+                  <button class="chip" data-from="2008-09-19" data-to="2009-12-31">2008–09 crisis</button>
+                  <button class="chip" data-from="2020-01-01" data-to="2020-12-31">2020 COVID</button>
+                  <button class="chip" data-from="2022-01-01" data-to="2022-12-31">2022 rate shock</button>
+                  <button class="chip" data-last="250">Last 250 days</button>
+                </div>
+              </div>
+            </div>
+            <div class="var-chart-wrap">
+              <canvas id="var-chart" role="img" aria-label="Daily profit and loss against the 99% one-day VaR forecast"></canvas>
+              <div class="var-tip" id="var-tip" hidden></div>
+              <p class="var-loading" id="var-loading">Loading 4,568 days of forecasts…</p>
+            </div>
+            <div class="var-legend">
+              <span><i class="lg lg-pnl"></i>Daily P&amp;L ($10M portfolio)</span>
+              <span><i class="lg lg-var"></i>99% 1-day VaR (shown as a loss)</span>
+              <span><i class="lg lg-exc"></i>Exception: loss bigger than VaR</span>
+            </div>
+            <div class="var-stats">
+              <div><p class="demo-label">Exceptions</p><p class="mono var-big" id="vs-exc">–</p><p class="muted" id="vs-exp"></p></div>
+              <div><p class="demo-label">Kupiec test (5%)</p><p class="mono var-big" id="vs-kupiec">–</p><p class="muted" id="vs-p"></p></div>
+              <div><p class="demo-label">Basel zone, last 250 days</p><p class="mono var-big" id="vs-zone">–</p><p class="muted" id="vs-zone-n"></p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stress tests -->
+        <div class="demo-panel" id="demo-stress" role="tabpanel" aria-labelledby="tab-stress" hidden>
+          <div class="demo-grid demo-grid-wide">
+            <div class="demo-box">
+              <div class="demo-head">
+                <h3>What each scenario does to $10M</h3>
+                <div class="chips" id="st-filter">
+                  <button class="chip active" data-type="all">All</button>
+                  <button class="chip" data-type="Historical"><i class="dot" style="background:#f87171"></i>Historical</button>
+                  <button class="chip" data-type="Hypothetical"><i class="dot" style="background:#fb923c"></i>Hypothetical</button>
+                </div>
+              </div>
+              <ul class="st-list" id="st-list"></ul>
+              <p class="st-detail" id="st-detail" aria-live="polite">Hover or tap a scenario for details.</p>
+            </div>
+            <div class="demo-box">
+              <div class="demo-head"><h3>Where the risk comes from</h3></div>
+              <p class="demo-note">Share of the portfolio's money vs. share of its VaR, by asset class.</p>
+              <div class="mix" id="mix"></div>
+              <p class="mix-takeaway">Equities are <b>45%</b> of the money but <b>83%</b> of the risk. Oil is the only position that lowers total VaR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- APPS -->
-    <section class="section" id="apps">
+    <section class="section section-alt" id="apps">
       <div class="container">
         <p class="eyebrow mono">Shipped products</p>
         <h2 class="section-title">Apps on Google Play</h2>
